@@ -15,13 +15,24 @@ for el in html.select('.article-summary'):
 # 1. Надо спарсить ссылку на статью
 # 2. Надо ее почистить
 # 3. C чистой ссылкой, создаем соединение и парсим тескт.
-#Ссылка на картинку - Все картинки и не обработанные 
-link = html.select('.image')
-print(link)
-
-
+#Ссылка на картинку - Все картинки и не обработанные
+list_link = [] 
+for el in html.select('.article-summary'):
+    link = el.select('.image')
+    list_link.append(link)
+    print(link)
+print(list_link[1])
 #Скачиваем картинку
 p = requests.get('https://images.stopgame.ru/articles/2020/08/31/c413x234/wAlIEXL377PeKGy82074UQ/1Migmop.jpg')
 out = open("img\img.jpg", "wb")
 out.write(p.content)
 out.close()
+
+# Функция обрезки строки
+def link_format():
+    str_link = '[<div class="image lazy" data-src="https://images.stopgame.ru/articles/2020/08/31/c413x234/WshDUnjizD_w8Bu6OPwUng/Sd2RAG-fH.jpg"></div>]'
+    str_search = "data-src" # Под строка которую буду искать
+    str_link.find(str_search) # Номер символа начала str_search
+
+
+link_format()
