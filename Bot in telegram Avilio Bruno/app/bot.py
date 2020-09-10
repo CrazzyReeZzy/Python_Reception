@@ -34,7 +34,7 @@ async def scheduled(wait_for):
 
 				# отправляем всем новость
 				await bot.send_photo(
-							'204192497',
+							'768700960',
 							nfo['image'],
 							caption = nfo['title'] + "\n" + "Оценка: " + nfo['score'] + "\n" + nfo['excerpt'] + "\n\n" + nfo['link'],
 							disable_notification = True
