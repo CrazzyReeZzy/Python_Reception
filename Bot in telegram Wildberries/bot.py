@@ -1,6 +1,8 @@
 import asyncio
 import logging
 
+import re
+
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
@@ -14,6 +16,6 @@ from config import TOKEN
 
 wb = Wildberries()
 url = wb.get_url(1)
-lastkey = wb.get_lastkey(1)
+lastkey = wb.get_lastkey('1')
 new = wb.new_clothes(url,lastkey)
-print(lastkey)
+print(new)

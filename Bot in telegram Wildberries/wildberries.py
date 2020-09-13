@@ -20,9 +20,9 @@ class Wildberries():
         config = configparser.ConfigParser()  # создаём объекта парсера
         config.read("data.ini")  # читаем конфиг
         data_category = config["Wildberries"]["category"]
-        int(data_category)
         if ( data_category == category ):
             lastkey = config["Wildberries"]["lastkey"]  # обращаемся как к обычному словарю!
+            lastkey = int(lastkey)# lastkey - приведенный int
         else:
             lastkey = 0
         return lastkey
@@ -31,7 +31,23 @@ class Wildberries():
         r = requests.get(url)
         html = BS(r.content, 'html.parser')
         new = []
-        items = html.select('.ref_goods_n_p')
+        items = html.select('.ref_goods_n_p') # вар -- cat
         for i in items:
-                new.append(i['href'])
+                key = self.parse_href(i['href'])
+                if (lastkey < int(key)):
+                    new.append(i['href'])
         return new
+    
+    def parse_href(self, href):
+        result = re.search(r'\d+', href)
+        return result.group(0)
+
+    
+    def get_new_lastkey(self,category,new_lastkey):
+        pass
+
+    def new_lastkey(self,category,new_lastkey):
+        new_config = configparser.ConfigParser()  # создаём объекта парсера
+        new_config.read("data.ini")  # читаем конфиг
+        if (category == new_config["Wildberries"]["category"]):
+            new_config.set("Wildberries", "lastkey", new_lastkey)
