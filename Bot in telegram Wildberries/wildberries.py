@@ -38,6 +38,17 @@ class Wildberries():
                     new.append(i['href'])
         return new
     
+    def info_clothes(self,link):
+        r = requests.get(link)
+        html = BS(r.content, 'html.parser')
+        # parse poster image url
+        poster = html.select('.MagicZoomFullSizeImage')
+        poster = re.search(r'src',poster)
+        #poster = re.match(r'src="*"', html.select('.MagicZoomFullSizeImage'))
+        return poster 
+
+
+
     def parse_href(self, href):
         result = re.search(r'\d+', href)
         return result.group(0)
