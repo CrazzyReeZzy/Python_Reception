@@ -41,10 +41,25 @@ class Wildberries():
     def info_clothes(self,link):
         r = requests.get(link)
         html = BS(r.content, 'html.parser')
+        
         # parse poster image url
         poster = html.select('.MagicZoomFullSizeImage')
-        poster = re.search(r'src',poster)
-        #poster = re.match(r'src="*"', html.select('.MagicZoomFullSizeImage'))
+        #Регулярным выражением ищем атрибут src
+        poster = re.search(r'src=".{5,30}"',str(poster))
+        #Регулярным выражением ищем ссылку
+        poster = re.search(r'//.{5,30}.ru',poster.group())
+        poster = poster.group()
+ 
+        # title
+        title = html.select()
+        # description
+        description = html.select()
+        # size
+        size = html.select()
+        # form
+        
+        
+        
         return poster 
 
 
