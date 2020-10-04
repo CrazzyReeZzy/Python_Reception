@@ -45,22 +45,35 @@ class Wildberries():
         # parse poster image url
         poster = html.select('.MagicZoomFullSizeImage')
         #Регулярным выражением ищем атрибут src
-        poster = re.search(r'src=".{5,30}"',str(poster))
+        poster = str(poster)
+        poster = re.search(r'src=.{5,100}.jpg', poster)
+        poster = poster.group()
         #Регулярным выражением ищем ссылку
-        poster = re.search(r'//.{5,30}.ru',poster.group())
+        poster = re.search(r'//.{5,50}', poster)
         poster = poster.group()
  
-        # title
-        title = html.select()
-        # description
-        description = html.select()
-        # size
+        #title
+        brand = html.select('.brand')[0].text
+        name = html.select('.name')[0].text
+        title = brand + ' ' + name
+        #description
+        description = html.select('.description-text > p')
+        #description-Composition
+        descriptionComposition = html.select('.collapsable-content').text
+        #size
         size = html.select()
-        # form
+
+        # form data
+        info = {
+			"title": title,
+			"link": link,
+			"image": poster,
+            "description": description,
+            "descriptionComposition": descriptionComposition
+		}
         
         
-        
-        return poster 
+        return info
 
 
 
