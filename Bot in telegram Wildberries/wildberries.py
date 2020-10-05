@@ -59,10 +59,14 @@ class Wildberries():
         #description
         description = html.select('.description-text > p')
         #description-Composition
-        descriptionComposition = html.select('.collapsable-content').text
+        descriptionComposition = html.select('.collapsable-content')[0].text
         #size
-        size = html.select()
-
+        size_col = html.select(' div.j-size-list > label')
+        # Считаем количество леблов на странице --- Ищем метод для поиска
+        #str(size_col) = 
+        size_list = []
+        for i in range(3):
+            size_list.append(html.select(' div.j-size-list > label.j-size > span')[i].text)
         # form data
         info = {
 			"title": title,
@@ -73,7 +77,7 @@ class Wildberries():
 		}
         
         
-        return info
+        return size_list
 
 
 
